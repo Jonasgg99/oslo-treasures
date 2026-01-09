@@ -21,6 +21,17 @@ export function renderApp() {
     <!-- Map Container -->
     <div id="map"></div>
 
+    <!-- Locate Me Button -->
+<button class="locate-btn" id="locateBtn" aria-label="Center on my location">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="12" cy="12" r="3"/>
+    <line x1="12" y1="2" x2="12" y2="6"/>
+    <line x1="12" y1="18" x2="12" y2="22"/>
+    <line x1="2" y1="12" x2="6" y2="12"/>
+    <line x1="18" y1="12" x2="22" y2="12"/>
+  </svg>
+</button>
+
     <!-- Bottom Sheet -->
     <div class="bottom-sheet" id="bottomSheet">
       <div class="sheet-handle"></div>
