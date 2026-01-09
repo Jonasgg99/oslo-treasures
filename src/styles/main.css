@@ -1,0 +1,14 @@
+/**
+ * MAIN STYLESHEET
+ * 
+ * Imports all style modules in the correct order.
+ * Using CSS imports keeps styles organized while still
+ * bundling everything together for production.
+ */
+
+@import './variables.css';
+@import './reset.css';
+@import './layout.css';
+@import './components.css';
+@import './map.css';
+@import './animations.css';

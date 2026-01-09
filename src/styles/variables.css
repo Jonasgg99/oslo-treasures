@@ -1,0 +1,36 @@
+/**
+ * CSS VARIABLES
+ * 
+ * All configurable values in one place.
+ * Change these to customize the app's appearance.
+ */
+
+:root {
+  /* Colors */
+  --color-bg: #1a1a2e;
+  --color-surface: #16213e;
+  --color-surface-hover: #1f2b4a;
+  --color-primary: #e94560;
+  --color-primary-dark: #c73e54;
+  --color-success: #4ade80;
+  --color-text: #eee;
+  --color-text-muted: #aaa;
+  --color-border: #333;
+  
+  /* Safe areas for notched phones */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  
+  /* Sizing */
+  --top-bar-height: 56px;
+  --bottom-sheet-peek: 100px;
+  --touch-target-min: 44px;
+  --border-radius: 12px;
+  --border-radius-lg: 20px;
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+}

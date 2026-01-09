@@ -1,0 +1,90 @@
+/**
+ * MAP STYLES
+ * 
+ * Custom marker styles and Leaflet overrides.
+ */
+
+/* ===== LEAFLET CONTROL OVERRIDES ===== */
+.leaflet-control-zoom {
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+  border-radius: var(--border-radius) !important;
+  overflow: hidden;
+}
+
+.leaflet-control-zoom a {
+  width: var(--touch-target-min) !important;
+  height: var(--touch-target-min) !important;
+  line-height: var(--touch-target-min) !important;
+  font-size: 20px !important;
+  background: var(--color-surface) !important;
+  color: var(--color-text) !important;
+  border: none !important;
+}
+
+.leaflet-control-zoom a:hover,
+.leaflet-control-zoom a:active {
+  background: var(--color-surface-hover) !important;
+}
+
+.leaflet-control-attribution {
+  background: rgba(26, 26, 46, 0.8) !important;
+  color: var(--color-text-muted) !important;
+  font-size: 10px !important;
+  padding: 2px 8px !important;
+}
+
+.leaflet-control-attribution a {
+  color: var(--color-text-muted) !important;
+}
+
+
+/* ===== TREASURE MARKERS ===== */
+.treasure-marker-wrapper {
+  background: transparent !important;
+  border: none !important;
+}
+
+.treasure-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--color-primary);
+  border: 3px solid white;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+  transition: transform var(--transition-fast);
+}
+
+.treasure-marker:hover {
+  transform: scale(1.1);
+}
+
+.treasure-marker.found {
+  background: var(--color-success);
+}
+
+
+/* ===== USER LOCATION MARKER ===== */
+.user-marker-wrapper {
+  background: transparent !important;
+  border: none !important;
+}
+
+.user-marker {
+  width: 20px;
+  height: 20px;
+  background: #4a90d9;
+  border: 3px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 0 8px rgba(74, 144, 217, 0.3);
+}
+
+.leaflet-user-accuracy {
+  fill: rgba(74, 144, 217, 0.15);
+  stroke: rgba(74, 144, 217, 0.3);
+  stroke-width: 1;
+}

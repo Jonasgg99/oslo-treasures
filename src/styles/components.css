@@ -1,0 +1,182 @@
+/**
+ * COMPONENT STYLES
+ * 
+ * Styles for smaller UI components: leaderboard, profile, toasts, GPS status.
+ */
+
+/* ===== LEADERBOARD ===== */
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  background: var(--color-surface);
+  border-radius: var(--border-radius);
+}
+
+.leaderboard-rank {
+  width: 32px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.leaderboard-item:nth-child(1) .leaderboard-rank { color: #ffd700; }
+.leaderboard-item:nth-child(2) .leaderboard-rank { color: #c0c0c0; }
+.leaderboard-item:nth-child(3) .leaderboard-rank { color: #cd7f32; }
+
+.leaderboard-name {
+  flex: 1;
+  font-size: 16px;
+}
+
+.leaderboard-points {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.leaderboard-item.current-user {
+  border: 2px solid var(--color-primary);
+}
+
+
+/* ===== PROFILE / FINDS ===== */
+.finds-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.finds-item {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  background: var(--color-surface);
+  border-radius: var(--border-radius);
+}
+
+.finds-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--color-success);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  font-size: 20px;
+  color: #000;
+}
+
+.finds-info {
+  flex: 1;
+}
+
+.finds-name {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.finds-date {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  text-transform: capitalize;
+}
+
+.finds-points {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+
+/* ===== EMPTY / LOADING STATES ===== */
+.empty-state,
+.loading {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--color-text-muted);
+}
+
+
+/* ===== GPS STATUS ===== */
+.gps-status {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color-surface);
+  padding: 24px 32px;
+  border-radius: var(--border-radius-lg);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-normal), visibility var(--transition-normal);
+  z-index: 3000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.gps-status.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+
+/* ===== TOAST NOTIFICATIONS ===== */
+.toast-container {
+  position: fixed;
+  bottom: calc(var(--bottom-sheet-peek) + 20px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.toast {
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: 12px 20px;
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  animation: toast-in 0.3s ease, toast-out 0.3s ease 2.7s forwards;
+}
+
+.toast.success {
+  background: var(--color-success);
+  color: #000;
+}
+
+.toast.error {
+  background: #ef4444;
+  color: white;
+}
+
+
+/* ===== LISTS (max width on large screens) ===== */
+@media (min-width: 1024px) {
+  .leaderboard-list,
+  .finds-list {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
