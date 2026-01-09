@@ -68,6 +68,29 @@
   background: var(--color-bg);
 }
 
+/* ===== LOCATE BUTTON ===== */
+.locate-btn {
+  position: fixed;
+  bottom: calc(var(--bottom-sheet-peek) + 16px);
+  right: 16px;
+  width: 48px;
+  height: 48px;
+  background: var(--color-surface);
+  border-radius: 50%;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transition: transform var(--transition-fast), background var(--transition-fast);
+}
+
+.locate-btn:active {
+  transform: scale(0.95);
+  background: var(--color-surface-hover);
+}
+
 
 /* ===== BOTTOM SHEET ===== */
 .bottom-sheet {
@@ -106,7 +129,7 @@
   white-space: nowrap;
 }
 
-.location-hint {
+.location-description {
   color: var(--color-text-muted);
   font-size: 14px;
   line-height: 1.4;

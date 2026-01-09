@@ -110,7 +110,7 @@ function setupDragBehavior(sheet) {
  */
 export function showLocationDetails(location) {
   document.getElementById('locationName').textContent = location.name;
-  document.getElementById('locationHint').textContent = location.hint || location.description;
+  document.getElementById('locationDescription').textContent = location.description;
   
   const difficultyEl = document.getElementById('locationDifficulty');
   difficultyEl.textContent = location.difficulty;

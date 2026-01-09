@@ -26,7 +26,7 @@ export function renderApp() {
       <div class="sheet-handle"></div>
       <div class="sheet-content">
         <h2 class="location-name" id="locationName">Tap a treasure to begin</h2>
-        <p class="location-hint" id="locationHint"></p>
+        <p class="location-description" id="locationDescription"></p>
         <div class="location-meta">
           <span class="difficulty" id="locationDifficulty"></span>
           <span class="points-value" id="locationPoints"></span>
