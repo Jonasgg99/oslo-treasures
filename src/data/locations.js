@@ -138,4 +138,14 @@ export const demoLocations = [
     difficulty: 'medium',
     category: 'nature',
   },
+  {
+    id: '13',
+    name: 'Test tveita',
+    description: 'Popular recreational lake north of the city',
+    latitude: 59.91905,
+    longitude: 10.84162,
+    points: 25,
+    difficulty: 'medium',
+    category: 'nature',
+  }
 ];
