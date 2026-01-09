@@ -90,6 +90,14 @@ export const gpsService = {
    * Handle GPS errors
    */
   handlePositionError(error) {
+    console.error('GPS error:', error.code, error.message);
+    
+    // On timeout, just keep trying - don't show error
+    if (error.code === 3) {
+      console.log('GPS timeout, retrying...');
+      return; // watchPosition will keep trying automatically
+    }
+    
     // Hide loading indicator
     const statusEl = document.getElementById('gpsStatus');
     if (statusEl) {
@@ -99,11 +107,9 @@ export const gpsService = {
     const messages = {
       1: 'Location access denied. Enable it in settings.',
       2: 'Unable to get location. Try going outside.',
-      3: 'Location request timed out. Retrying...',
     };
     
     showToast(messages[error.code] || 'Location error', 'error');
-    console.error('GPS error:', error);
   },
   
   

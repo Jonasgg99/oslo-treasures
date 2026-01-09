@@ -13,8 +13,8 @@ export const CONFIG = {
   
   // GPS settings
   CHECKIN_RADIUS_METERS: 50,  // How close user must be to check in
-  GPS_TIMEOUT: 15000,          // Max time to wait for GPS fix (ms)
-  GPS_MAX_AGE: 5000,           // Accept GPS readings up to this old (ms)
+  GPS_TIMEOUT: 30000,          // Max time to wait for GPS fix (ms)
+  GPS_MAX_AGE: 10000,          // Accept positions up to 10s old
   
   // Map settings
   DEFAULT_CENTER: [59.9139, 10.7522],  // Oslo city center
