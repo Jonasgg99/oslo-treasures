@@ -46,7 +46,10 @@ function setupDragBehavior(sheet) {
     const isExpanded = sheet.classList.contains('expanded');
     startTranslate = isExpanded ? 0 : sheet.offsetHeight - 100;
     sheet.style.transition = 'none';
-  }, { passive: true });
+    
+    // Prevent map from receiving this touch
+    e.stopPropagation();
+  }, { passive: false });
   
   sheet.addEventListener('touchmove', (e) => {
     if (!isDragging) return;
@@ -54,9 +57,12 @@ function setupDragBehavior(sheet) {
     const deltaY = currentY - startY;
     const newTranslate = Math.max(0, Math.min(sheet.offsetHeight - 100, startTranslate + deltaY));
     sheet.style.transform = `translateY(${newTranslate}px)`;
-  }, { passive: true });
+    
+    // Prevent map from receiving this touch
+    e.stopPropagation();
+  }, { passive: false });
   
-  sheet.addEventListener('touchend', () => {
+  sheet.addEventListener('touchend', (e) => {
     if (!isDragging) return;
     isDragging = false;
     sheet.style.transition = '';
@@ -72,6 +78,9 @@ function setupDragBehavior(sheet) {
       sheet.classList.remove('expanded');
       state.ui.isBottomSheetExpanded = false;
     }
+    
+    // Prevent map from receiving this touch
+    e.stopPropagation();
   });
 }
 
