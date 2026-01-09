@@ -7,6 +7,8 @@
 import { state } from '../services/state.js';
 import { close as closeDrawer } from '../components/Drawer.js';
 import { collapse as collapseSheet } from '../components/BottomSheet.js';
+import { centerOnUser } from '../components/Map.js';
+import { showToast } from './toast.js';
 
 
 /**
@@ -24,6 +26,21 @@ export function setupEventListeners() {
   
   // Prevent pull-to-refresh on mobile
   document.body.addEventListener('touchmove', preventOverscroll, { passive: false });
+  
+  // Locate me button
+  document.getElementById('locateBtn').addEventListener('click', handleLocateClick);
+}
+
+
+/**
+ * Handle locate button click
+ */
+function handleLocateClick() {
+  if (state.gps.currentPosition) {
+    centerOnUser();
+  } else {
+    showToast('Waiting for GPS...', 'error');
+  }
 }
 
 
