@@ -18,18 +18,10 @@ import { updateMarker } from './Map.js';
  */
 export function setupBottomSheet() {
   const sheet = document.getElementById('bottomSheet');
-  const handle = sheet.querySelector('.sheet-handle');
   const checkinBtn = document.getElementById('checkinBtn');
   
-  // Drag to expand/collapse
-  setupDragBehavior(sheet, handle);
-  
-  // Tap sheet to expand
-  sheet.addEventListener('click', (e) => {
-    if (!e.target.closest('button') && !sheet.classList.contains('expanded')) {
-      expand();
-    }
-  });
+  // Drag anywhere on sheet to expand/collapse
+  setupDragBehavior(sheet);
   
   // Check-in button
   checkinBtn.addEventListener('click', handleCheckin);
@@ -39,12 +31,16 @@ export function setupBottomSheet() {
 /**
  * Set up drag behavior for the sheet
  */
-function setupDragBehavior(sheet, handle) {
+function setupDragBehavior(sheet) {
   let startY = 0;
   let startTranslate = 0;
   let isDragging = false;
   
-  handle.addEventListener('touchstart', (e) => {
+  // Listen on entire sheet, not just handle
+  sheet.addEventListener('touchstart', (e) => {
+    // Don't interfere with button taps
+    if (e.target.closest('button')) return;
+    
     isDragging = true;
     startY = e.touches[0].clientY;
     const isExpanded = sheet.classList.contains('expanded');
@@ -52,7 +48,7 @@ function setupDragBehavior(sheet, handle) {
     sheet.style.transition = 'none';
   }, { passive: true });
   
-  handle.addEventListener('touchmove', (e) => {
+  sheet.addEventListener('touchmove', (e) => {
     if (!isDragging) return;
     const currentY = e.touches[0].clientY;
     const deltaY = currentY - startY;
@@ -60,7 +56,7 @@ function setupDragBehavior(sheet, handle) {
     sheet.style.transform = `translateY(${newTranslate}px)`;
   }, { passive: true });
   
-  handle.addEventListener('touchend', () => {
+  sheet.addEventListener('touchend', () => {
     if (!isDragging) return;
     isDragging = false;
     sheet.style.transition = '';
@@ -71,8 +67,10 @@ function setupDragBehavior(sheet, handle) {
     
     if (rect.top < threshold) {
       sheet.classList.add('expanded');
+      state.ui.isBottomSheetExpanded = true;
     } else {
       sheet.classList.remove('expanded');
+      state.ui.isBottomSheetExpanded = false;
     }
   });
 }

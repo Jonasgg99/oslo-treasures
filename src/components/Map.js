@@ -10,7 +10,7 @@ import { CONFIG } from '../config.js';
 import { state } from '../services/state.js';
 import { locationService } from '../services/locations.js';
 import { userService } from '../services/user.js';
-import { showLocationDetails } from './BottomSheet.js';
+import { showLocationDetails, collapse } from './BottomSheet.js';
 
 
 /**
@@ -34,6 +34,16 @@ export function initMap() {
     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     maxZoom: CONFIG.MAX_ZOOM,
   }).addTo(state.map);
+  
+  // Collapse bottom sheet when user interacts with map
+  state.map.on('dragstart', collapse);
+  state.map.on('zoomstart', collapse);
+  state.map.on('click', (e) => {
+    // Only collapse if not clicking a marker
+    if (!e.originalEvent.target.closest('.treasure-marker')) {
+      collapse();
+    }
+  });
   
   // Make L available globally for other components
   window.L = L;
