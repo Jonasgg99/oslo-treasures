@@ -37,13 +37,7 @@ export function initMap() {
   
   // Collapse bottom sheet when user interacts with map
   state.map.on('dragstart', collapse);
-  state.map.on('zoomstart', collapse);
-  state.map.on('click', (e) => {
-    // Only collapse if not clicking a marker
-    if (!e.originalEvent.target.closest('.treasure-marker')) {
-      collapse();
-    }
-  });
+  state.map.on('click', collapse);
   
   // Make L available globally for other components
   window.L = L;

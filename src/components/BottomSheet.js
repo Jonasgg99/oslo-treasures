@@ -12,6 +12,9 @@ import { CONFIG } from '../config.js';
 import { showToast } from '../utils/toast.js';
 import { updateMarker } from './Map.js';
 
+// Lock to prevent collapse during drag
+let dragLock = false;
+
 
 /**
  * Set up bottom sheet interactions
@@ -33,54 +36,71 @@ export function setupBottomSheet() {
  */
 function setupDragBehavior(sheet) {
   let startY = 0;
-  let startTranslate = 0;
+  let currentY = 0;
   let isDragging = false;
   
-  // Listen on entire sheet, not just handle
+  // Listen on entire sheet
   sheet.addEventListener('touchstart', (e) => {
     // Don't interfere with button taps
     if (e.target.closest('button')) return;
     
     isDragging = true;
+    dragLock = true;
     startY = e.touches[0].clientY;
-    const isExpanded = sheet.classList.contains('expanded');
-    startTranslate = isExpanded ? 0 : sheet.offsetHeight - 100;
+    currentY = startY;
     sheet.style.transition = 'none';
-    
-    // Prevent map from receiving this touch
-    e.stopPropagation();
-  }, { passive: false });
+  }, { passive: true });
   
   sheet.addEventListener('touchmove', (e) => {
     if (!isDragging) return;
-    const currentY = e.touches[0].clientY;
-    const deltaY = currentY - startY;
-    const newTranslate = Math.max(0, Math.min(sheet.offsetHeight - 100, startTranslate + deltaY));
-    sheet.style.transform = `translateY(${newTranslate}px)`;
     
-    // Prevent map from receiving this touch
-    e.stopPropagation();
-  }, { passive: false });
+    currentY = e.touches[0].clientY;
+    const deltaY = currentY - startY;
+    const isExpanded = sheet.classList.contains('expanded');
+    
+    // Calculate new position
+    let translateY;
+    if (isExpanded) {
+      // When expanded, only allow dragging down
+      translateY = Math.max(0, deltaY);
+    } else {
+      // When collapsed, allow dragging up from peek position
+      const peekOffset = sheet.offsetHeight - 100;
+      translateY = Math.max(0, Math.min(peekOffset, peekOffset + deltaY));
+    }
+    
+    sheet.style.transform = `translateY(${translateY}px)`;
+  }, { passive: true });
   
-  sheet.addEventListener('touchend', (e) => {
+  sheet.addEventListener('touchend', () => {
     if (!isDragging) return;
     isDragging = false;
+    
+    const deltaY = currentY - startY;
+    const isExpanded = sheet.classList.contains('expanded');
+    const dragThreshold = 50; // Minimum drag distance to trigger change
+    
     sheet.style.transition = '';
     sheet.style.transform = '';
     
-    const rect = sheet.getBoundingClientRect();
-    const threshold = window.innerHeight * 0.5;
-    
-    if (rect.top < threshold) {
-      sheet.classList.add('expanded');
-      state.ui.isBottomSheetExpanded = true;
+    if (isExpanded) {
+      // If expanded and dragged down enough, collapse
+      if (deltaY > dragThreshold) {
+        sheet.classList.remove('expanded');
+        state.ui.isBottomSheetExpanded = false;
+      }
     } else {
-      sheet.classList.remove('expanded');
-      state.ui.isBottomSheetExpanded = false;
+      // If collapsed and dragged up enough, expand
+      if (deltaY < -dragThreshold) {
+        sheet.classList.add('expanded');
+        state.ui.isBottomSheetExpanded = true;
+      }
     }
     
-    // Prevent map from receiving this touch
-    e.stopPropagation();
+    // Release lock after a delay
+    setTimeout(() => {
+      dragLock = false;
+    }, 200);
   });
 }
 
@@ -217,6 +237,9 @@ export function expand() {
  * Collapse the bottom sheet
  */
 export function collapse() {
+  // Don't collapse if user is dragging the sheet
+  if (dragLock) return;
+  
   document.getElementById('bottomSheet').classList.remove('expanded');
   state.ui.isBottomSheetExpanded = false;
 }
