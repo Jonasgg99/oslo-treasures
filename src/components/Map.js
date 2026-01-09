@@ -139,6 +139,10 @@ export function centerOn(lat, lng, zoom = null) {
 export function centerOnUser() {
   const gps = state.gps.currentPosition;
   if (gps) {
-    centerOn(gps.coords.latitude, gps.coords.longitude);
+    state.map.flyTo(
+      [gps.coords.latitude, gps.coords.longitude],
+      state.map.getZoom(),
+      { duration: 0.5 }
+    );
   }
 }
