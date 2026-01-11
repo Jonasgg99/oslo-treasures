@@ -1,6 +1,6 @@
 # Oslo Treasures
 
-A mobile-first treasure hunting app for exploring Oslo on foot. Find hidden treasures at real locations around the city, earn points, and compete on the leaderboard.
+A mobile treasure hunting app for exploring Oslo on foot. Find hidden treasures at real locations around the city, earn points, and compete on the leaderboard.
 
 ![Mobile PWA](https://img.shields.io/badge/mobile-PWA-blue)
 ![Vite](https://img.shields.io/badge/built%20with-Vite-646CFF)
